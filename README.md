@@ -4,11 +4,11 @@ Your SwissArmy knife of the Unix world simplifying commonly used commands and ex
 ## 1. Downloading stuff
 ====================
  For faster downloads, ZeinArmy tries to use [aria2c](http://aria2.sourceforge.net/ "aria2c") first before resorting to the standard
-wget. --
+wget. 
 
-    ./zeinarmy.sh dl <url> <output name> --
+    ./zeinarmy.sh dl <url> <output name> 
 
-OR --
+OR 
 
-    ./zeinarmy.sh dl <url> --
+    ./zeinarmy.sh dl <url> 
 
