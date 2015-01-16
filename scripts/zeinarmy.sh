@@ -4,6 +4,7 @@
 #set -x
 
 CMD_DOWNLOAD="dl"
+CMD_OPEN="open"
 ARIA2_CONCURRENT_CONNECTIONS=8
 
 #Checks if a command is available
@@ -40,10 +41,30 @@ download_url(){
 	fi
 }
 
+#TODO: Support passing additional parameters 
+default_open(){
+
+	PARAM="$1"
+	is_cmd "xdg-open"
+	if [ "$?" -eq 0 ];then
+		xdg-open ${PARAM} && return 0
+	fi
+	is_cmd "gnome-open"
+	if [ "$?" -eq 0 ];then
+		gnome-open ${PARAM} && return 0
+	fi
+	is_cmd "kde-open"
+	if [ "$?" -eq 0 ];then
+		kde-open ${PARAM} && return 0
+	fi
+
+}
 
 fetch_cmd(){
 	if [ "$1"=${CMD_DOWNLOAD} ];then
 		export CURR_CMD="download_url"
+	elif [ "$1"=${CMD_OPEN} ]; then
+		export CURR_CMD="default_open"
 	fi
 }
 
