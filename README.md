@@ -13,5 +13,6 @@ OR
     ./zeinarmy.sh dl <url>
 ## 2. Opening Stuff
  To open any file with the deafult program irrespective of the OS.
+
     ./zeinarmy.sh open <file>
 
