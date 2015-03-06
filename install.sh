@@ -3,7 +3,7 @@
 
 
 INSTALL_PREFIX='/usr/local/bin'
-TO_INSTALL='./scripts/*'
+TO_INSTALL='scripts/*'
 
 
 
@@ -11,7 +11,7 @@ main(){
 	if [ ! "$1"="" ]; then
 		sudo cp -r $TO_INSTALL $INSTALL_PREFIX
 	else
-		cp -r $TO_INSTALL $INSTALL_PREFIX
+		cp -r $TO_INSTALL $1
 	fi
 
 }

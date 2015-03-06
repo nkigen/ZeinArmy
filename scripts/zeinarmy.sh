@@ -19,18 +19,19 @@ download_url(){
 	OUTPUT_NAME=$3
 	is_cmd "aria2c"
 	if [ "$?" -eq 0 ];then
-		echo "Using aria2\n"
-		if [ ! $OUTPUT_NAME="" ]; then
+		echo "Using aria2 with "${ARIA2_CONCURRENT_CONNECTIONS}" concurrent connections. enjoy!"
+		if [ ! -z ${OUTPUT_NAME} ]; then
 			aria2c -x ${ARIA2_CONCURRENT_CONNECTIONS} ${URL} -o ${OUTPUT_NAME}
 		else
 			aria2c -x ${ARIA2_CONCURRENT_CONNECTIONS} ${URL}
 		fi	
 
 	else
+		echo "You should consider installing aria2c, its way faster as it supports concurrent downloads"
 		is_cmd "wget"
 		if [ "$?" -eq 0 ];then
 			echo "using wget\n"
-		if [ ! $OUTPUT_NAME="" ]; then
+		if [ ! -z ${OUTPUT_NAME} ]; then
 			wget ${URL} -O ${OUTPUT_NAME}
 		else
 			wget ${URL}
@@ -57,7 +58,6 @@ default_open(){
 	if [ "$?" -eq 0 ];then
 		kde-open ${PARAM} && return 0
 	fi
-
 }
 
 fetch_cmd(){
@@ -68,9 +68,7 @@ fetch_cmd(){
 	fi
 }
 
-
 main(){
-
 	fetch_cmd "$@"
 	${CURR_CMD} "$@"
 }
