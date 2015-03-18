@@ -5,7 +5,18 @@
 
 CMD_DOWNLOAD="dl"
 CMD_OPEN="open"
+CMD_UNCOMPRESS="uc"
 ARIA2_CONCURRENT_CONNECTIONS=8
+
+UNCOMPRESS_EXTS=(
+		'tar'
+		'tar.gz'
+		'tar.xz'
+		'tar.bz2'
+		'zip'
+		'rar'
+		'tgz'
+		)
 
 #Checks if a command is available
 ##TODO:use command -v instead of hash
@@ -60,16 +71,53 @@ default_open(){
 	fi
 }
 
+uncompress(){
+FILE="$2"
+EXT=${FILE#*.}
+
+echo "FILE : "${FILE} " extension "$EXT
+count=0
+while [ "x${UNCOMPRESS_EXTS[count]}" != "x" ]
+do
+	if [[ ${UNCOMPRESS_EXTS[count]} == *"${EXT}" ]];then
+		echo "found"
+		break
+	fi
+	count=$(( $count + 1 ))
+done
+
+if [ $count -eq 0 ];then
+	tar -xvf "$FILE"
+elif [ $count -eq 1 ];then
+	tar zxvf "$FILE"
+elif [ $count -eq 2 ];then
+	tar xvf "$FILE"
+elif [ $count -eq 3 ];then
+	tar xjvf "$FILE"
+elif [ $count -eq 4 ];then
+	unzip "$FILE"
+elif [ $count -eq 5 ];then
+	rar x "$FILE"
+elif [ $count -eq 6 ];then
+	tar zxvf "$FILE"
+fi
+
+
+}
+
 fetch_cmd(){
-	if [ "$1"=${CMD_DOWNLOAD} ];then
+	if [ "$1" = ${CMD_DOWNLOAD} ];then
 		export CURR_CMD="download_url"
-	elif [ "$1"=${CMD_OPEN} ]; then
+	elif [ "$1" = ${CMD_OPEN} ]; then
 		export CURR_CMD="default_open"
+	elif [ "$1" = ${CMD_UNCOMPRESS} ]; then
+		export CURR_CMD="uncompress"
 	fi
 }
 
 main(){
 	fetch_cmd "$@"
+	echo "current command "${CURR_CMD}
 	${CURR_CMD} "$@"
 }
 
