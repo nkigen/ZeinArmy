@@ -3,9 +3,14 @@
 
 #set -x
 
+#Commands
 CMD_DOWNLOAD="dl"
 CMD_OPEN="open"
 CMD_UNCOMPRESS="uc"
+CMD_COMPRESS="c"
+CMD_DUMP="d" #Dump all of a script output to a file
+
+
 ARIA2_CONCURRENT_CONNECTIONS=8
 
 UNCOMPRESS_EXTS=(
@@ -101,18 +106,39 @@ elif [ $count -eq 5 ];then
 elif [ $count -eq 6 ];then
 	tar zxvf "$FILE"
 fi
+}
 
+#Currently only tar is used. SUpport for others in the next release
+compress(){
+   tar -zcvf "$2".tar.gz "$3" 
+}
+
+#Currently assumes full paths only
+#TODO: Expand relative paths to full paths
+dump(){
+NUM_ARGS="$#"
+if [ "$SHELL" = "/bin/bash" ]; then
+	if [ $NUM_ARGS -eq 3 ]; then
+		"$2" > "$3"  2>&1
+	fi
+fi	
 
 }
 
 fetch_cmd(){
+	CURR_CMD=""
 	if [ "$1" = ${CMD_DOWNLOAD} ];then
-		export CURR_CMD="download_url"
+		CURR_CMD="download_url"
 	elif [ "$1" = ${CMD_OPEN} ]; then
-		export CURR_CMD="default_open"
+		CURR_CMD="default_open"
 	elif [ "$1" = ${CMD_UNCOMPRESS} ]; then
-		export CURR_CMD="uncompress"
+		CURR_CMD="uncompress"
+	elif [ "$1" = ${CMD_COMPRESS} ]; then
+		CURR_CMD="compress"
+	elif [ "$1" = ${CMD_DUMP} ]; then
+		CURR_CMD="dump"
 	fi
+	export CURR_CMD
 }
 
 main(){
