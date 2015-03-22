@@ -76,6 +76,7 @@ default_open(){
 	fi
 }
 
+#Currently assumes there are no periods('.') upto the extensions (unwise I know but Im working on a solution)
 uncompress(){
 FILE="$2"
 EXT=${FILE#*.}
@@ -143,7 +144,7 @@ fetch_cmd(){
 
 main(){
 	fetch_cmd "$@"
-	echo "current command "${CURR_CMD}
+	echo `basename $0`":current command "${CURR_CMD}
 	${CURR_CMD} "$@"
 }
 
