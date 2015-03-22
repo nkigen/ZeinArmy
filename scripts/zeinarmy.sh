@@ -8,6 +8,7 @@ CMD_DOWNLOAD="dl"
 CMD_OPEN="open"
 CMD_UNCOMPRESS="uc"
 CMD_COMPRESS="c"
+CMD_CONVERT="ci"
 CMD_DUMP="d" #Dump all of a script output to a file
 
 
@@ -114,6 +115,10 @@ compress(){
    tar -zcvf "$2".tar.gz "$3" 
 }
 
+convert_size(){
+	convert "$2" "$3" "$2"
+}
+
 #Currently assumes full paths only
 #TODO: Expand relative paths to full paths
 dump(){
@@ -138,6 +143,8 @@ fetch_cmd(){
 		CURR_CMD="compress"
 	elif [ "$1" = ${CMD_DUMP} ]; then
 		CURR_CMD="dump"
+	elif [ "$1" = ${CMD_CONVERT} ]; then
+		CURR_CMD="convert_size"
 	fi
 	export CURR_CMD
 }
