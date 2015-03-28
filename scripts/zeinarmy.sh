@@ -62,7 +62,7 @@ download_url(){
 #TODO: Support passing additional parameters 
 default_open(){
 
-	PARAM="$1"
+	PARAM="$2"
 	is_cmd "xdg-open"
 	if [ "$?" -eq 0 ];then
 		xdg-open ${PARAM} && return 0
@@ -81,6 +81,15 @@ default_open(){
 uncompress(){
 FILE="$2"
 EXT=${FILE#*.}
+count=0
+while [ "x${UNCOMPRESS_EXTS[count]}" != "x" ]
+do
+	if [[ $FILE == *.${UNCOMPRESS_EXTS[count]} ]];then
+		export EXT=${UNCOMPRESS_EXTS[count]}
+		break
+	fi
+	count=$(( $count + 1 ))
+done
 
 echo "FILE : "${FILE} " extension "$EXT
 count=0
