@@ -3,16 +3,8 @@
 
 #set -x
 
-#Commands
-CMD_DOWNLOAD="dl"
-CMD_OPEN="open"
-CMD_UNCOMPRESS="uc"
-CMD_COMPRESS="c"
-CMD_CONVERT="ci"
-CMD_DUMP="d" #Dump all of a script output to a file
-
-
-ARIA2_CONCURRENT_CONNECTIONS=8
+#TEMP SOLUTION
+DIR="/development/development/git/ZeinArmy"
 
 UNCOMPRESS_EXTS=(
 		'tar'
@@ -159,6 +151,7 @@ fetch_cmd(){
 }
 
 main(){
+	source ${DIR}/config
 	fetch_cmd "$@"
 	echo `basename $0`":current command "${CURR_CMD}
 	${CURR_CMD} "$@"

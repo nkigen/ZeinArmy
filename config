@@ -1,0 +1,14 @@
+#User configurable commands
+CMD_DOWNLOAD="dl"
+CMD_OPEN="open"
+CMD_UNCOMPRESS="uc"
+CMD_COMPRESS="c"
+CMD_CONVERT="ci"
+CMD_DUMP="d" #Dump all of a script output to a file
+
+
+#Application Settings
+ARIA2_CONCURRENT_CONNECTIONS=8
+
+
+export ARIA2_CONCURRENT_CONNECTIONS CMD_DOWNLOAD CMD_OPEN CMD_UNCOMPRESS CMD_COMPRESS CMD_CONVERT CMD_DUMP
