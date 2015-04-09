@@ -23,10 +23,22 @@ UNCOMPRESS_EXTS=(
 
 #Checks if a command is available
 ##TODO:use command -v instead of hash
+
 is_cmd(){
 	hash "$@" &>/dev/null
 }
 
+
+#Add an alias to .bash_aliases file
+add_alias(){
+.
+}
+
+chmod_num(){
+
+ls -l "$@" | awk '{k=0;for(i=0;i<=8;i++)k+=((substr($1,i+2,1)~/[rwx]/) \
+		             *2^(8-i));if(k)printf("%0o ",k);print}' | cut -c1-3 
+}
 #Downloads a url. First checks if aria2 is available. If not it uses wget or curl
 download_url(){
 	URL=$2
@@ -151,6 +163,10 @@ fetch_cmd(){
 		CURR_CMD="dump"
 	elif [ "$1" = ${CMD_CONVERT} ]; then
 		CURR_CMD="convert_size"
+	elif [ "$1" = ${CMD_CHMOD_NUM} ]; then
+		CURR_CMD="chmod_num"
+	elif [ "$1" = ${CMD_ALIAS} ]; then
+		CURR_CMD="alias"
 	fi
 	export CURR_CMD
 }

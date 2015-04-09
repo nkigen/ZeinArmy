@@ -7,6 +7,8 @@ CMD_UNCOMPRESS="uc"
 CMD_COMPRESS="c"
 CMD_CONVERT="ci"
 CMD_DUMP="d" #Dump all of a script output to a file
+CMD_CHMOD_NUM="chmod"
+CMD_ALIAS="alias"
 
 
 #Application Settings
