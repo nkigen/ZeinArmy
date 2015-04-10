@@ -22,7 +22,7 @@ main(){
 		echo "installing zeinarmy to "${INSTALL_PREFIX}
 		sudo cp -r $TO_INSTALL $INSTALL_PREFIX
 		sudo mkdir -p /etc/zeinarmy
-		prepend "CONFIG_DIR=/etc/zeinarmy" $(readlink -f config)
+		#prepend "CONFIG_DIR=/etc/zeinarmy" $(readlink -f config)
 		sudo cp -r config /etc/zeinarmy
 #	else
 #		echo "installing zeinarmy to ""$1"
