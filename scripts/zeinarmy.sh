@@ -33,7 +33,7 @@ add_alias(){
 }
 
 prepend(){
-echo '$1' | cat - $2 > .zatemp && mv .zatemp $2
+echo "$1" | cat - $2 > .zatemp && mv .zatemp $2
 
 }
 #Add the beer-ware license on top of source file
@@ -194,7 +194,7 @@ fetch_cmd(){
 }
 
 main(){
-	source ${CONFIG_DIR}/config
+	source /etc/zeinarmy/config
 	fetch_cmd "$@"
 	#echo `basename $0`":current command "${CURR_CMD}
 	${CURR_CMD} ${@:2}

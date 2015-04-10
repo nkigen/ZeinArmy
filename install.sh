@@ -10,7 +10,11 @@ INSTALL_PREFIX='/usr/local/bin'
 TO_INSTALL='scripts/*'
 
 check_version(){
+.
+}
 
+prepend(){
+echo "$1" | cat - $2 > .zatemp && mv .zatemp $2
 }
 
 main(){
@@ -18,7 +22,7 @@ main(){
 		echo "installing zeinarmy to "${INSTALL_PREFIX}
 		sudo cp -r $TO_INSTALL $INSTALL_PREFIX
 		sudo mkdir -p /etc/zeinarmy
-		scripts/zeinarmy.sh prepend "CONFIG_DIR=/etc/zeinarmy" config
+		prepend "CONFIG_DIR=/etc/zeinarmy" $(readlink -f config)
 		sudo cp -r config /etc/zeinarmy
 #	else
 #		echo "installing zeinarmy to ""$1"
