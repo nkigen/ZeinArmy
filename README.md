@@ -4,6 +4,7 @@ Your SwissArmy knife of the Unix world simplifying commonly used commands and ex
 ## 1. Installing
 ==========
 To install zeinarmy, run the install.sh script  
+
     ./install.sh 
 
 ## 2. Configuring
