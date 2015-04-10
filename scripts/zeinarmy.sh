@@ -1,15 +1,12 @@
 #!/bin/bash
 #----------------------------------------------------------------------------
-# "THE BEER-WARE LICENSE" (Revision 42):
+# "THE BEER-WARE LICENSE" (Revision 43):
 # <nellyk89@gmail.com> wrote this file.  As long as you retain this notice you
 # can do whatever you want with this stuff. If we meet some day, and you think
-# this stuff is worth it, you can buy me a beer in return.   Poul-Henning Kamp
+# this stuff is worth it, you can buy me a beer in return.   nelson kigen
 # ----------------------------------------------------------------------------
 
 #set -x
-
-#TEMP SOLUTION
-DIR="/development/development/git/ZeinArmy"
 
 UNCOMPRESS_EXTS=(
 		'tar'
@@ -31,11 +28,26 @@ is_cmd(){
 
 #Add an alias to .bash_aliases file
 add_alias(){
-.
+	echo "alias $1='$1'" >> ~/.bash_aliases
+	echo "alias $1='$2' added to ~/.bash_aliases"
+}
+
+prepend(){
+echo '$1' | cat - $2 > .zatemp && mv .zatemp $2
+
+}
+#Add the beer-ware license on top of source file
+beerware(){
+echo '#----------------------------------------------------------------------------
+# "THE BEER-WARE LICENSE" (Revision 43):
+# <nellyk89@gmail.com> wrote this file.  As long as you retain this notice you
+# can do whatever you want with this stuff. If we meet some day, and you think
+# this stuff is worth it, you can buy me a beer in return.   nelson kigen
+# ----------------------------------------------------------------------------' | cat - $1 > .zatemp && mv .zatemp $1
+
 }
 
 chmod_num(){
-
 ls -l "$@" | awk '{k=0;for(i=0;i<=8;i++)k+=((substr($1,i+2,1)~/[rwx]/) \
 		             *2^(8-i));if(k)printf("%0o ",k);print}' | cut -c1-3 
 }
@@ -133,6 +145,7 @@ compress(){
    tar -zcvf "$2".tar.gz "$3" 
 }
 
+#Convert image size
 convert_size(){
 	convert "$2" "$3" "$2"
 }
@@ -149,6 +162,9 @@ fi
 
 }
 
+version(){
+	echo $VERSION
+}
 fetch_cmd(){
 	CURR_CMD=""
 	if [ "$1" = ${CMD_DOWNLOAD} ];then
@@ -166,16 +182,23 @@ fetch_cmd(){
 	elif [ "$1" = ${CMD_CHMOD_NUM} ]; then
 		CURR_CMD="chmod_num"
 	elif [ "$1" = ${CMD_ALIAS} ]; then
-		CURR_CMD="alias"
+		CURR_CMD="add_alias"
+	elif [ "$1" = ${CMD_BEERWARE} ]; then
+		CURR_CMD="beerware"
+	elif [ "$1" = ${CMD_VERSION} ]; then
+		CURR_CMD="version"
+	elif [ "$1" = ${CMD_PREPEND} ]; then
+		CURR_CMD="prepend"
 	fi
 	export CURR_CMD
 }
 
 main(){
-	source ${DIR}/config
+	source ${CONFIG_DIR}/config
 	fetch_cmd "$@"
-	echo `basename $0`":current command "${CURR_CMD}
-	${CURR_CMD} "$@"
+	#echo `basename $0`":current command "${CURR_CMD}
+	${CURR_CMD} ${@:2}
+
 }
 
 main "$@"
