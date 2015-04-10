@@ -2,7 +2,7 @@
 Your SwissArmy knife of the Unix world simplifying commonly used commands and executing common tasks Tasks better.
 
 ## 1. Installing
-==========
+----------------
 To install zeinarmy, run the install.sh script  
 
     ./install.sh 
