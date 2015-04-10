@@ -48,7 +48,7 @@ echo '#-------------------------------------------------------------------------
 }
 
 chmod_num(){
-ls -l "$@" | awk '{k=0;for(i=0;i<=8;i++)k+=((substr($1,i+2,1)~/[rwx]/) \
+ls -l ${@:2} | awk '{k=0;for(i=0;i<=8;i++)k+=((substr($1,i+2,1)~/[rwx]/) \
 		             *2^(8-i));if(k)printf("%0o ",k);print}' | cut -c1-3 
 }
 #Downloads a url. First checks if aria2 is available. If not it uses wget or curl
@@ -197,7 +197,7 @@ main(){
 	source /etc/zeinarmy/config
 	fetch_cmd "$@"
 	#echo `basename $0`":current command "${CURR_CMD}
-	${CURR_CMD} ${@:2}
+	${CURR_CMD} "$@"
 
 }
 
