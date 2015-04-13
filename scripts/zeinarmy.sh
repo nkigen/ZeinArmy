@@ -18,6 +18,7 @@ UNCOMPRESS_EXTS=(
 		'tgz'
 		)
 
+TMP_DIR="/tmp/"
 #Checks if a command is available
 ##TODO:use command -v instead of hash
 
@@ -33,7 +34,7 @@ add_alias(){
 }
 
 prepend(){
-echo "$1" | cat - $2 > .zatemp && mv .zatemp $2
+echo "$1" | cat - $2 > ${TMP_DIR}.zatemp && mv ${TMP_DIR}.zatemp $2
 
 }
 #Add the beer-ware license on top of source file
@@ -43,7 +44,7 @@ echo '#-------------------------------------------------------------------------
 # <nellyk89@gmail.com> wrote this file.  As long as you retain this notice you
 # can do whatever you want with this stuff. If we meet some day, and you think
 # this stuff is worth it, you can buy me a beer in return.   nelson kigen
-# ----------------------------------------------------------------------------' | cat - $1 > .zatemp && mv .zatemp $1
+# ----------------------------------------------------------------------------' | cat - $1 > ${TMP_DIR}.zatemp && mv ${TMP_DIR}.zatemp $1
 
 }
 
