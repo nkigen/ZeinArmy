@@ -4,7 +4,8 @@ Your SwissArmy knife of the Unix world simplifying commonly used commands and ex
 ## 1. Installing
 To install zeinarmy, run the install.sh script  
 
-    ./install.sh 
+    sudo ./install.sh  
+NOTE: The install location is /usr/bin/local but in future support for a custom install location is planned
 
 ## 2. Configuring
 ZeinArmy allows you to configure commands by editing the config file (located at /etc/zeinarmy)  
