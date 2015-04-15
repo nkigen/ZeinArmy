@@ -18,15 +18,17 @@ echo "$1" | cat - $2 > .zatemp && mv .zatemp $2
 }
 
 main(){
-#	if [ "r""$1" = "r" ]; then
+	if [ "r""$1" = "r" ]; then
 		echo "installing zeinarmy to "${INSTALL_PREFIX}
 		sudo cp -r $TO_INSTALL $INSTALL_PREFIX
 		sudo mkdir -p /etc/zeinarmy
 		#prepend "CONFIG_DIR=/etc/zeinarmy" $(readlink -f config)
 		sudo cp -r config /etc/zeinarmy
-#	else
-#		echo "installing zeinarmy to ""$1"
-#		cp -r $TO_INSTALL $1
-#	fi
+	else
+		echo "installing zeinarmy to ""$1"
+		mkdir -p $1
+		cp -r config $1
+		cp -r $TO_INSTALL $1
+	fi
 }
 main "$@"
