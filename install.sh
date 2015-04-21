@@ -10,11 +10,11 @@ INSTALL_PREFIX='/usr/local/bin'
 TO_INSTALL='scripts/*'
 
 check_version(){
-.
+	.
 }
 
 prepend(){
-echo "$1" | cat - $2 > .zatemp && mv .zatemp $2
+	echo "$1" | cat - $2 > .zatemp && mv .zatemp $2
 }
 
 main(){
